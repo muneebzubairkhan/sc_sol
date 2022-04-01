@@ -1,4 +1,5 @@
 const anchor = require('@project-serum/anchor');
+const assert = require("assert");
 
 describe("sc_sol", () => {
   // Configure the client to use the local cluster.
@@ -23,5 +24,17 @@ describe("sc_sol", () => {
       signers: [calculatorAccount],
     });
     console.log("Your transaction signature", tx);
+  });
+
+  it("Add 2 numbers", async () => {
+    const tx = await program.rpc.add(new anchor.BN(2), new anchor.BN(3), {
+      accounts: {
+        calculator: calculatorAccount.publicKey,
+      },
+    });
+    console.log("Your transaction signature", tx);
+
+    const account = await program.account.calculator.fetch(calculatorAccount.publicKey);
+    assert.ok(account.result.eq(new anchor.BN(5)));
   });
 });
