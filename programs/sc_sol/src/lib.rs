@@ -3,9 +3,9 @@ use anchor_lang::prelude::*;
 declare_id!("4DzTzA5yGGX9bF7fpScPmRKLEMfxqaLUuECBsMbH1kEt");
 
 #[program]
-pub mod sol_sc {
+pub mod sc_sol {
     use super::*;
-    pub fn create(ctx: Context<Create>, init_message: String) -> ProgramResult {
+    pub fn create_calculator_sol(ctx: Context<Create>, init_message: String) -> ProgramResult {
         let calculator = &mut ctx.accounts.calculator;
         calculator.greeting = init_message;
         Ok(())

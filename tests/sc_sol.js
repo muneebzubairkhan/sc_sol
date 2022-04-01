@@ -1,14 +1,27 @@
 const anchor = require('@project-serum/anchor');
 
-describe('sc_sol', () => {
-
+describe("sc_sol", () => {
   // Configure the client to use the local cluster.
-  anchor.setProvider(anchor.Provider.env());
+  const provider = anchor.Provider.env();
+  anchor.setProvider(provider);
 
-  it('Is initialized!', async () => {
-    // Add your test here.
-    const program = anchor.workspace.ScSol;
-    const tx = await program.rpc.initialize();
+  const calculatorAccount = anchor.web3.Keypair.generate();
+  const program = anchor.workspace.ScSol;
+
+  it("Is initialized!", async () => {
+    const tx = await program.rpc.initialize({});
+    console.log("Your transaction signature", tx);
+  });
+
+  it("Calculator created!", async () => {
+    const tx = await program.rpc.createCalculatorSol("Assalamo Alaikum, Calculator created.", {
+      accounts: {
+        calculator: calculatorAccount.publicKey,
+        user: provider.wallet.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      },
+      signers: [calculatorAccount],
+    });
     console.log("Your transaction signature", tx);
   });
 });
