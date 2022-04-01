@@ -37,4 +37,17 @@ describe("sc_sol", () => {
     const account = await program.account.calculator.fetch(calculatorAccount.publicKey);
     assert.ok(account.result.eq(new anchor.BN(5)));
   });
+
+  it("Divide 2 numbers", async () => {
+    const tx = await program.rpc.div(new anchor.BN(5), new anchor.BN(2), {
+      accounts: {
+        calculator: calculatorAccount.publicKey,
+      },
+    });
+    console.log("Your transaction signature", tx);
+
+    const account = await program.account.calculator.fetch(calculatorAccount.publicKey);
+    assert.ok(account.result.eq(new anchor.BN(2))); // quotient
+    assert.ok(account.remainder.eq(new anchor.BN(1))); // remainder
+  });
 });
