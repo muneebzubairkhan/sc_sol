@@ -2,10 +2,10 @@
 sc_sol = "4DzTzA5yGGX9bF7fpScPmRKLEMfxqaLUuECBsMbH1kEt"
 
 [registry]
-url = "https://anchor.projectserum.com"
+url = "https://api.devnet.solana.com"
 
 [provider]
-cluster = "localnet"
+cluster = "devnet"
 wallet = "/Users/mzk/.config/solana/id.json"
 
 [scripts]
